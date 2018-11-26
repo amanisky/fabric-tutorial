@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>26、定制</title>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <script src="../bower_components/fabric.js/dist/fabric.js"></script>
+  <script>
+    var canvas = new fabric.Canvas('c', {
+      width: 500,
+      height: 300,
+      backgroundColor: '#eee',
+      selection: true,
+      uniScaleTransform: false
+    });
+    canvas.selectionColor = 'rgba(0,255,0,0.3)';
+    canvas.selectionBorderColor = 'red';
+    canvas.selectionLineWidth = 5;
+    canvas.selectionDashArray = [3, 3];
+    var rect1 = new fabric.Rect({
+      top: 20,
+      left: 20,
+      width: 50,
+      height: 50,
+      fill: 'red',
+      stroke: 'blue',
+      strokeWidth: 2,
+      strokeDashArray: [1, 2]
+    });
+    var rect2 = new fabric.Rect({
+      top: 20,
+      left: 90,
+      width: 50,
+      height: 50,
+      fill: 'green'
+    });
+    canvas.add(rect1, rect2);
+  </script>
+</body>
+</html>

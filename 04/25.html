@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>25、自由绘图</title>
+</head>
+<body>
+  <div style="padding-bottom: 10px;">
+    <button id="start">开始绘图</button>
+    <button id="end">结束绘图</button>
+  </div>
+  <canvas id="c"></canvas>
+  <script src="../bower_components/fabric.js/dist/fabric.js"></script>
+  <script>
+    var canvas = new fabric.Canvas('c', {
+      width: 500,
+      height: 300,
+      backgroundColor: '#eee'
+    });
+    var start = document.getElementById('start');
+    var end = document.getElementById('end');
+    start.addEventListener('click', () => {
+      canvas.freeDrawingBrush.color = 'red';
+      canvas.set('isDrawingMode', true);
+    });
+    end.addEventListener('click', () => {
+      canvas.set('isDrawingMode', false);
+    });
+  </script>
+</body>
+</html>

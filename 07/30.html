@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>30、使用位图来显示文本</title>
+</head>
+
+<body>
+  <canvas id="c"></canvas>
+  <script src="../bower_components/fabric.js/dist/fabric.js"></script>
+  <script>
+    var canvas = new fabric.Canvas('c', {
+      width: 500,
+      height: 300,
+      backgroundColor: '#eee'
+    });
+    fabric.BitmapText = fabric.util.createClass(fabric.Textbox, {
+      type: 'bitmapText',
+      bitmap: '../images/font.png',
+      readyToRender: false,
+      charWidth: 6,
+      charHeight: 9,
+      fontSize: 9,
+      charMap: ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}'
+        .split('').reduce(function (acc, char, index) {
+          acc[char] = index + 31;
+          return acc;
+        }, {}),
+      initialize: function (text, options) {
+        this.callSuper('initialize', text, options);
+        var image = fabric.document.createElement('img');
+        image.onload = (function () {
+          var canvas = fabric.document.createElement('canvas');
+          canvas.width = image.width;
+          canvas.height = image.height;
+          console.log(canvas.width)
+          canvas.getContext('2d').drawImage(image, 0, 0);
+          this.bitmapResource = canvas;
+          this.readyToRender = true;
+          this.dirty = true;
+          if (this.canvas) this.canvas.requestRenderAll();
+        }).bind(this);
+        image.src = this.bitmap;
+      },
+
+      // override: make it return a fixed box 6x9
+      _measureChar: function (_char, charStyle, previousChar, prevCharStyle) {
+        return {
+          width: 6,
+          kernedWidth: 6
+        };
+      },
+
+      _renderChar: function (method, ctx, lineIndex, charIndex, _char, left, top) {
+        if (!this.readyToRender) return;
+        var charMap = this.charMap,
+          res = this.bitmapResource;
+        _char.split('').forEach(function (singleChar) {
+          ctx.drawImage(res, charMap[singleChar] * 6, 0, 5, 9, left, top - 6, 5, 9);
+          ctx.translate(6, 0);
+        });
+      },
+    });
+    var text = new fabric.BitmapText('amanisky hello world');
+    canvas.add(text);
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>05、通过 set 方法修改对象</title>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <script src="../bower_components/fabric.js/dist/fabric.js"></script>
+  <script>
+    var canvas = new fabric.Canvas('c');
+    var rect = new fabric.Rect({
+      width: 30,
+      height: 30
+    });
+    canvas.add(rect);
+    rect.set('fill', 'red');
+    rect.set({
+      top: 10,
+      left: 10,
+      skewX: 10,
+      flipX: true
+    })
+  </script>
+</body>
+</html>

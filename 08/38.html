@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>38、</title>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <script src="../bower_components/fabric.js/dist/fabric.js"></script>
+  <script>
+    var canvas = new fabric.Canvas('c', {
+      width: 500,
+      height: 300,
+      backgroundColor: '#eee'
+    });
+    var clipPath = new fabric.Circle({
+      radius: 50,
+      fill: 'green',
+      top: -50,
+      left: -50,
+      inverted: true
+    });
+    var rect = new fabric.Rect({
+      width: 200,
+      height: 200,
+      fill: 'red',
+      clipPath
+    });
+    var rect2 = new fabric.Rect({
+      width: 200,
+      height: 200,
+      fill: 'green'
+    });
+    canvas.add(rect2, rect);
+  </script>
+</body>
+</html>

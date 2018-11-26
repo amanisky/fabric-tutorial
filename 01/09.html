@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>09、互动</title>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <script src="../bower_components/fabric.js/dist/fabric.js"></script>
+  <script>
+    var canvas = new fabric.Canvas('c', {
+      width: 500,
+      height: 300,
+      backgroundColor: '#eee'
+    });
+
+    // 禁用组选择
+    canvas.selection = false;
+
+    var rect = new fabric.Rect({
+      top: 100,
+      left: 50,
+      width: 100,
+      height: 50,
+      fill: 'green'
+    });
+
+    // 不允许选中
+    rect.set('selectable', false); 
+
+    // 圆
+    var circle = new fabric.Circle({
+      top: 100,
+      left: 180,
+      radius: 50,
+      fill: 'aqua',
+      cornerStyle: 'circle'
+    });
+
+    canvas.add(rect, circle);
+  </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>15、图片过滤器</title>
+</head>
+
+<body>
+  <canvas id="c"></canvas>
+  <script src="../bower_components/fabric.js/dist/fabric.js"></script>
+  <script>
+    var canvas = new fabric.Canvas('c', {
+      width: 500,
+      height: 300,
+      backgroundColor: '#eee'
+    });
+    fabric.Image.fromURL('../images/img01.jpg', function (img) {
+      img.set({
+        top: 50,
+        left: 50
+      });
+      // 添加滤镜
+      img.filters.push(
+        new fabric.Image.filters.Sepia(),
+        new fabric.Image.filters.Grayscale()
+      );
+      // 应用滤镜
+      img.applyFilters();
+      // 将图像渲染到画布
+      canvas.add(img);
+    });
+  </script>
+</body>
+
+</html>

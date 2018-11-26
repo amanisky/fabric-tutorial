@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>22、toDatalessJSON、loadFromDatalessJSON</title>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <script src="../bower_components/fabric.js/dist/fabric.js"></script>
+  <script>
+    var canvas = new fabric.Canvas('c', {
+      width: 500,
+      height: 500,
+      backgroundColor: '#eee'
+    });
+    var path = new fabric.Path('M18,3L46,3L46,40Z');
+    canvas.add(path)
+    canvas.item(0).sourcePath = '../images/dragon.svg';
+    // output：{"version":"2.4.3","objects":[{"type":"path","version":"2.4.3","originX":"left","originY":"top","left":18,"top":3,"width":28,"height":37,"fill":"rgb(0,0,0)","stroke":null,"strokeWidth":1,"strokeDashArray":null,"strokeLineCap":"butt","strokeLineJoin":"miter","strokeMiterLimit":4,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"shadow":null,"visible":true,"clipTo":null,"backgroundColor":"","fillRule":"nonzero","paintFirst":"fill","globalCompositeOperation":"source-over","transformMatrix":null,"skewX":0,"skewY":0,"sourcePath":"../images/dragon.svg"}],"background":"#eee"}
+    console.log(JSON.stringify(canvas.toDatalessJSON()));
+    // loadFromDatalessJSON 知道如何获取这些“路径”字符串（如 "sourcePath":"../images/dragon.svg" ），加载它们，并用作相应路径对象的数据
+    canvas.loadFromDatalessJSON('{"version":"2.4.3","objects":[{"type":"path","version":"2.4.3","originX":"left","originY":"top","left":18,"top":3,"width":28,"height":37,"fill":"rgb(0,0,0)","stroke":null,"strokeWidth":1,"strokeDashArray":null,"strokeLineCap":"butt","strokeLineJoin":"miter","strokeMiterLimit":4,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"shadow":null,"visible":true,"clipTo":null,"backgroundColor":"","fillRule":"nonzero","paintFirst":"fill","globalCompositeOperation":"source-over","transformMatrix":null,"skewX":0,"skewY":0,"sourcePath":"../images/dragon.svg"}],"background":"#eee"}')
+  </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>17、事件</title>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <script src="../bower_components/fabric.js/dist/fabric.js"></script>
+  <script>
+    var canvas = new fabric.Canvas('c', {
+      width: 500,
+      height: 300,
+      backgroundColor: '#eee'
+    });
+    var text1 = new fabric.Text('hello');
+    // 只监听 text1
+    text1.on('rotating', function (opts) {
+      console.log('text1 旋转了', opts)
+    });
+    var text2 = new fabric.Text('world', { left: 150 });
+    canvas.on('mouse:down', function (opts) {
+      console.log('坐标：', opts.e.clientX, opts.e.clientY);
+      if (opts.target) {
+        console.log('an object was clicked! ', opts.target.type);
+      }
+    });
+    // 全局监听
+    canvas.on('object:rotating', function (opts) {
+      console.log('画布上有对象旋转了', opts)
+    });
+    canvas.add(text1, text2);
+  </script>
+</body>
+</html>

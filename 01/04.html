@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>04、圆、椭圆、线、折线、多边形、矩形、三角形</title>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <script src="../bower_components/fabric.js/dist/fabric.js"></script>
+  <script>
+    // 全局配置
+    fabric.Object.prototype.cornerStyle = 'circle';
+
+    var canvas = new fabric.Canvas('c', {
+      width: 500,
+      height: 330,
+      backgroundColor: '#000'
+      // 组选择时的背景色
+      // selectionColor: 'orange',
+      // 组选择时的边框
+      // selectionLineWidth: 10
+    });
+    // 圆
+    var circle = new fabric.Circle({
+      top: 10,
+      left: 10,
+      radius: 50,
+      strokeWidth: 1,
+      stroke: 'aqua',
+      cornerStyle: 'circle'
+    });
+
+    // 椭圆
+    var ellipse = new fabric.Ellipse({
+      top: 10,
+      left: 120,
+      rx: 100,
+      ry: 50,
+      stroke: 'green'
+    });
+
+    // 线
+    var line = new fabric.Line([0, 10, 100, 100], {
+      top: 10,
+      left: 340,
+      stroke: 'fuchsia',
+      strokeWidth: 1
+      // evented: false,
+      // selectable: false
+    });
+
+    // 折线
+    var polyLine = new fabric.Polyline([
+        { x: 10, y: 10 },
+        { x: 50, y: 30 },
+        { x: 40, y: 70 },
+        { x: 60, y: 50 },
+        { x: 100, y: 150 },
+        { x: 40, y: 100 }
+      ], {
+      stroke: 'red',
+      left: 10,
+      top: 150
+    });
+
+    // 多边形
+    var polygon = new fabric.Polygon([
+        { x: 10, y: 10 },
+        { x: 50, y: 30 },
+        { x: 40, y: 70 },
+        { x: 60, y: 50 },
+        { x: 100, y: 150 },
+        { x: 40, y: 100 }
+      ], {
+      stroke: 'orange',
+      left: 100,
+      top: 150
+    });
+
+    // 矩形
+    var rect = new fabric.Rect({
+      top: 150,
+      left: 200,
+      width: 100,
+      height: 50,
+      rx: 5,
+      ry: 5,
+      stroke: 'gold'
+    });
+
+    // 三角形
+    var triangle = new fabric.Triangle({
+      top: 150,
+      left: 300,
+      width: 100,
+      height: 100,
+      stroke: 'maroon'
+    })
+
+    canvas.add(circle, ellipse, line, polyLine, polygon, rect, triangle);
+  </script>
+</body>
+</html>

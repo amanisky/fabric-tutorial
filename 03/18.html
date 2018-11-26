@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>18、组</title>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <script src="../bower_components/fabric.js/dist/fabric.js"></script>
+  <script>
+    var canvas = new fabric.Canvas('c', {
+      width: 500,
+      height: 300,
+      backgroundColor: '#eee'
+    });
+    
+    // originX、originY 设置为 center，使得对象可以在组内居中
+    var circle = new fabric.Circle({
+      radius: 100,
+      fill: 'pink',
+      scaleY: 0.5,
+      originX: 'center',
+      originY: 'center'
+    });
+
+    var text = new fabric.Text('hello world', {
+      fontSize: 30,
+      originX: 'center',
+      originY: 'center'
+    });
+
+    var group = new fabric.Group([ circle, text ], {
+      left: 150,
+      top: 10
+    });
+
+    // 访问组中的单个对象，并设置属性
+    group.item(0).set('fill', 'red');
+    group.item(1).set({
+      text: 'trololo',
+      fill: 'white'
+    });
+
+    // 通过 left 属性将组内对象并排
+    var circle1 = new fabric.Circle({
+      radius: 50,
+      fill: 'red',
+      left: 0
+    });
+    var circle2 = new fabric.Circle({
+      radius: 50,
+      fill: 'green',
+      left: 100
+    });
+    var circle3 = new fabric.Circle({
+      radius: 50,
+      fill: 'blue',
+      left: 200
+    });
+
+    var group2 = new fabric.Group([ circle1, circle2, circle3 ], {
+      left: 0,
+      top: 150
+    });
+
+    canvas.add(group, group2);
+
+    // 添加组到画布
+    canvas.add(group);
+  </script>
+</body>
+</html>

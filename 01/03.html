@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>03、跟踪画布状态</title>
+</head>
+
+<body>
+  <canvas id="c"></canvas>
+  <button id="move">移动</button>
+  <script src="../bower_components/fabric.js/dist/fabric.js"></script>
+  <script>
+    var canvas = new fabric.Canvas('c');
+    var rect = new fabric.Rect({
+      left: 100,
+      top: 100,
+      fill: 'red',
+      width: 20,
+      height: 20
+    });
+    canvas.add(rect);
+
+    document.getElementById('move').addEventListener('click', () => {
+      rect.set({top: 50, left: 50});
+      canvas.renderAll();
+    });
+  </script>
+</body>
+
+</html>

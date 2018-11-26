@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>19、使用图像形成组</title>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <script src="../bower_components/fabric.js/dist/fabric.js"></script>
+  <script>
+    var canvas = new fabric.Canvas('c', {
+      width: 500,
+      height: 300,
+      backgroundColor: '#eee'
+    });
+    fabric.Image.fromURL('../images/01.png', function(img) {
+      var img1 = img.scale(0.2).set({ left: 100 });
+
+      fabric.Image.fromURL('../images/02.png', function(img) {
+        var img2 = img.scale(0.2).set({ left: 150 });
+
+        var group = new fabric.Group([ img1, img2 ], { left: 10, top: 10 })
+        console.log('组包含的对象', group.getObjects())
+        console.log('组包含对象的数量', group.size())
+        group.forEachObject(function (current, index, arr) {
+          current.set('top', 20 * index)
+        });
+        canvas.add(group);
+      });
+    });
+  </script>
+</body>
+</html>

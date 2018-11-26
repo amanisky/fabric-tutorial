@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>20、序列化</title>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <script src="../bower_components/fabric.js/dist/fabric.js"></script>
+  <script>
+    var canvas = new fabric.Canvas('c', {
+      width: 500,
+      height: 500,
+      backgroundColor: '#eee'
+    });
+    /**
+     * 序列化画布
+     * 使用 ES5 JSON.stringify() 方法，如果该方法存在，它会隐式调用传递对象的 JSON 方法。
+     * 由于 Fabric 中的 canvas 实例具有 toJSON 方法，因此就相当于调用了 JSON.stringify(canvas.toJSON())
+     */ 
+    // output：{"version":"2.4.3","objects":[],"background":"#eee"} 包含：版本信息、对象集合、背景色
+    console.log(JSON.stringify(canvas));
+
+    canvas.add(new fabric.Rect({
+      left: 50,
+      top: 50,
+      height: 20,
+      width: 20,
+      fill: 'green',
+      // 设置 excludeFromExport 为 true，则该对象不会被导出
+      excludeFromExport: true
+    }));
+    var data = JSON.stringify(canvas);
+    // output：{"version":"2.4.3","objects":[{"type":"rect","version":"2.4.3","originX":"left","originY":"top","left":50,"top":50,"width":20,"height":20,"fill":"green","stroke":null,"strokeWidth":1,"strokeDashArray":null,"strokeLineCap":"butt","strokeLineJoin":"miter","strokeMiterLimit":4,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"shadow":null,"visible":true,"clipTo":null,"backgroundColor":"","fillRule":"nonzero","paintFirst":"fill","globalCompositeOperation":"source-over","transformMatrix":null,"skewX":0,"skewY":0,"rx":0,"ry":0}],"background":"#eee"}
+    console.log(data);
+    // toObject 返回与 toJSON 相同的表示形式，仅以实际对象的形式返回
+    console.log(canvas.toObject(data))
+
+    canvas.add(new fabric.Circle({
+      left: 100,
+      top: 100,
+      radius: 50,
+      fill: 'red'
+    }));
+
+    // output：{"version":"2.4.3","objects":[{"type":"rect","version":"2.4.3","originX":"left","originY":"top","left":50,"top":50,"width":20,"height":20,"fill":"green","stroke":null,"strokeWidth":1,"strokeDashArray":null,"strokeLineCap":"butt","strokeLineJoin":"miter","strokeMiterLimit":4,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"shadow":null,"visible":true,"clipTo":null,"backgroundColor":"","fillRule":"nonzero","paintFirst":"fill","globalCompositeOperation":"source-over","transformMatrix":null,"skewX":0,"skewY":0,"rx":0,"ry":0},{"type":"circle","version":"2.4.3","originX":"left","originY":"top","left":100,"top":100,"width":100,"height":100,"fill":"red","stroke":null,"strokeWidth":1,"strokeDashArray":null,"strokeLineCap":"butt","strokeLineJoin":"miter","strokeMiterLimit":4,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"shadow":null,"visible":true,"clipTo":null,"backgroundColor":"","fillRule":"nonzero","paintFirst":"fill","globalCompositeOperation":"source-over","transformMatrix":null,"skewX":0,"skewY":0,"radius":50,"startAngle":0,"endAngle":6.283185307179586}],"background":"#eee"}
+    console.log(JSON.stringify(canvas));
+
+    // 输出图片
+    var img = canvas.toDataURL('png');
+    console.log(img)
+
+    // 输出 SVG
+    console.log(canvas.toSVG())
+  </script>
+</body>
+</html>

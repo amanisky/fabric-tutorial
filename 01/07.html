@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>07、层次结构与继承</title>
+</head>
+
+<body>
+  <canvas id="c"></canvas>
+  <script src="../bower_components/fabric.js/dist/fabric.js"></script>
+  <script>
+    // 获取弧度角度
+    fabric.Object.prototype.getAngleInRadians = function () {
+      return this.get('angle') / 180 * Math.PI;
+    };
+
+    var rect = new fabric.Rect({
+      angle: 45
+    });
+    console.log(rect.getAngleInRadians()); // 0.785...
+
+    var circle = new fabric.Circle({
+      angle: 30,
+      radius: 10
+    });
+    console.log(circle.getAngleInRadians()); // 0.523...
+
+    console.log(circle instanceof fabric.Circle); // true
+    console.log(circle instanceof fabric.Object); // true
+  </script>
+</body>
+
+</html>

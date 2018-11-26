@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>12、通过 url 将图像添加到画布中</title>
+  <style>
+    body {
+      margin: 0;
+    }
+    .hide {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="c" height="100%"></canvas>
+  <img src="../images/demo.png" id="my-image" class="hide">
+  <script src="../bower_components/fabric.js/dist/fabric.js"></script>
+  <script>
+    var canvas = new fabric.Canvas('c', {
+      width: window.innerWidth,
+      height: window.innerHeight,
+      backgroundColor: '#eee'
+    });
+    fabric.Image.fromURL('../images/demo.png', function(oImg) {
+      // scale image down, and flip it, before adding it onto canvas
+      oImg.scale(0.5).set('flipY', true);
+      canvas.add(oImg);
+    });
+  </script>
+</body>
+</html>

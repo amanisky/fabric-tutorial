@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>31-01、基础的 clipPath 示例</title>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <script src="../bower_components/fabric.js/dist/fabric.js"></script>
+  <script>
+    var canvas = new fabric.Canvas('c', { width: 500, height: 300, backgroundColor: '#eee' });
+    var circle = new fabric.Circle({ radius: 40, originX: 'center', originY: 'center' });
+    var rect = new fabric.Rect({ width: 300, height: 200, fill: 'red', clipPath: circle });
+    canvas.add(rect);
+  </script>
+</body>
+</html>

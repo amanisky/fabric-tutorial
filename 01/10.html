@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <script src="../bower_components/fabric.js/dist/fabric.js"></script>
+  <script>
+    var canvas = new fabric.StaticCanvas('c', {
+      width: 300,
+      height: 200,
+      backgroundColor: '#ccc'
+    });
+
+    canvas.add(new fabric.Rect({
+      top: 10,
+      left: 10,
+      width: 100,
+      height: 100,
+      fill: 'pink'
+    }));
+  </script>
+</body>
+</html>

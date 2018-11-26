@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>28、放大与平移</title>
+</head>
+
+<body>
+  <canvas id="c"></canvas>
+  <script src="../bower_components/fabric.js/dist/fabric.js"></script>
+  <script>
+    var canvas = new fabric.Canvas('c', {
+      width: 600,
+      height: 300,
+      backgroundColor: '#eee'
+    });
+    canvas.setBackgroundImage('../images/demo.png', canvas.renderAll.bind(canvas));
+    var rect1 = new fabric.Rect({
+      top: 50,
+      left: 50,
+      width: 100,
+      height: 100,
+      fill: 'red'
+    });
+    var rect2 = new fabric.Rect({
+      top: 50,
+      left: 150,
+      width: 50,
+      height: 50,
+      fill: 'green'
+    });
+    canvas.add(rect1, rect2);
+    canvas.on('mouse:wheel', function (opt) {
+      var delta = opt.e.deltaY > 0 ? true : false;
+      var zoom = canvas.getZoom();
+      if (delta) {
+        zoom -= 0.1
+      } else {
+        zoom += 0.1
+      }
+      if (zoom > 2) zoom = 2;
+      if (zoom < 0.3) zoom = 0.3;
+      // 缩放画布
+      // canvas.setZoom(zoom);
+      // 以中心点缩放画布
+      canvas.zoomToPoint({ x: opt.e.offsetX, y: opt.e.offsetY }, zoom);
+      opt.e.preventDefault();
+      opt.e.stopPropagation();
+      // 限制边界的移动
+      // ....没看明白....
+    });
+    canvas.on('mouse:down', function (opt) {
+      var evt = opt.e;
+      if (evt.altKey === true) {
+        // 可拖动
+        this.isDragging = true;
+        // 禁用组选择
+        this.selection = false;
+        // 最后的 X 坐标
+        this.lastPosX = evt.clientX;
+        // 最后的 Y 坐标
+        this.lastPosY = evt.clientY;
+      }
+    });
+    canvas.on('mouse:move', function (opt) {
+      if (this.isDragging) {
+        var e = opt.e;
+        // viewportTransform 聚焦视口
+        this.viewportTransform[4] += e.clientX - this.lastPosX;
+        this.viewportTransform[5] += e.clientY - this.lastPosY;
+        this.requestRenderAll();
+        this.lastPosX = e.clientX;
+        this.lastPosY = e.clientY;
+      }
+    });
+    canvas.on('mouse:up', function (opt) {
+      this.isDragging = false;
+      this.selection = true;
+    });
+  </script>
+</body>
+
+</html>

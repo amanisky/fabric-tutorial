@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>24-02、通过现有的 Fabric 类来实现自定义类</title>
+</head>
+
+<body>
+  <canvas id="c"></canvas>
+  <script src="../bower_components/fabric.js/dist/fabric.js"></script>
+  <script>
+    var canvas = new fabric.Canvas('c', {
+      width: 500,
+      height: 300,
+      backgroundColor: '#eee'
+    });
+    /**
+     * 1、将父 class 指定为 fabric.Rect，利用其渲染能力
+     * 2、设置 type 属性 为 labeledRect（为了保持一致性，因为所有 Fabric 对象都具有 type 属性）
+     * 3、在 initialize 指定的构造函数中使用 callSuper 方法调用父类的构造函数
+     * 4、设置 label 接收文本
+     * 5、toObject 序列化画布方法
+     * 6、_render 绘制方法
+     */ 
+    var LabeledRect = fabric.util.createClass(fabric.Rect, {
+      type: 'labeledRect',
+      initialize: function (options) {
+        options || (options = {});
+        this.callSuper('initialize', options);
+        this.set('label', options.label || '');
+        this.set('label', options.label || '');
+      },
+      // 序列化对象方法
+      toObject: function () {
+        return fabric.util.object.extend(this.callSuper('toObject'), {
+          label: this.get('label')
+        });
+      },
+      // 绘制
+      _render: function (ctx) {
+        // 绘制矩形
+        this.callSuper('_render', ctx);
+        
+        // 绘制文字
+        ctx.font = this.labelFont || '20px sans-serif';
+        ctx.fillStyle = this.labelFill || '#333';
+        ctx.fillText(this.label, -this.width / 2 + 10, -this.height / 2 + 40);
+      }
+    });
+    // 使用 LabeledRect
+    var labeledRect = new LabeledRect({
+      width: 200,
+      height: 150,
+      left: 100,
+      top: 100,
+      label: '哇哈哈',
+      fill: '#faa'
+    });
+    canvas.add(labeledRect);
+    // 更改设置
+    labeledRect.set({
+      label: 'trololo',
+      fill: '#aaf',
+      labelFont: '40px sans-serif',
+      labelFill: 'yellow',
+      rx: 10,
+      ry: 10
+    });
+  </script>
+</body>
+
+</html>

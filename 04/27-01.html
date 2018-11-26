@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>27、画布背景图</title>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <img src="../images/01.png" alt="图片" style="display: none;" id="one">
+  <script src="../bower_components/fabric.js/dist/fabric.js"></script>
+  <script>
+    var canvas = new fabric.Canvas('c', {
+      wdith: 100,
+      height: 200
+      // backgroundImage: new fabric.Image(document.getElementById('one'), {
+      //   left: 0,
+      //   top: 0
+      // })
+    });
+    canvas.setBackgroundImage('../images/02.png', canvas.renderAll.bind(canvas));
+
+    var rect = new fabric.Rect({
+      top: 10,
+      left: 10,
+      width: 50,
+      height: 50,
+      fill: 'green'
+    });
+
+    canvas.add(rect);
+  </script>
+</body>
+</html>

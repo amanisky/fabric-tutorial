@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>24-01、创建自定义 Point 类和 ColorPoint 子类</title>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <script src="../bower_components/fabric.js/dist/fabric.js"></script>
+  <script>
+    // 创建 Point 类
+    var Point = fabric.util.createClass({
+      type: 'point',
+      // initialize 用作构造函数
+      initialize: function(x, y) {
+        this.x = x || 0;
+        this.y = y || 0;
+      },
+      toString: function() {
+        return this.x + '/' + this.y;
+      }
+    });
+
+    // 创建 Point 类的子类 ColoredPoint
+    var ColoredPoint = fabric.util.createClass(Point, {
+      type: 'colorPoint',
+      initialize: function(x, y, color) {
+        /**
+         * 使用 callSuper 调用父类的方法
+         * 这意味着如果更改了 Point 的代码，ColoredPoint 的代码也需要修改
+         * 例如：Point 初始化需要接收三个参数
+         */
+        this.callSuper('initialize', x, y);
+        this.color = color || '#000';
+      },
+      toString: function() {
+        return this.callSuper('toString') + ' (color: ' + this.color + ')';
+      }
+    });
+
+    var point = new Point(20, 30);
+    console.log(point);
+
+    var colorPoint = new ColoredPoint(10, 10, 'red');
+    console.log(colorPoint);
+  </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>01、画矩形--原生 vs Fabric</title>
+</head>
+
+<body>
+  <canvas id="c"></canvas>
+  <canvas id="d"></canvas>
+  <script src="../bower_components/fabric.js/dist/fabric.js"></script>
+  <script>
+    // reference canvas element (with id="c")
+    var canvasEl = document.getElementById('c');
+
+    // get 2d context to draw on (the "bitmap" mentioned earlier)
+    var ctx = canvasEl.getContext('2d');
+
+    // set fill color of context
+    ctx.fillStyle = 'red';
+
+    // create rectangle at a 100,100 point, with 20x20 dimensions
+    ctx.fillRect(100, 100, 20, 20);
+
+    // 创建一个画布对象 (id="d")
+    var canvas = new fabric.Canvas('d');
+
+    // 创建一个矩形对象
+    var rect = new fabric.Rect({
+      left: 100,
+      top: 100,
+      fill: 'green',
+      width: 20,
+      height: 20
+    });
+
+    // 添加矩形对象到画布
+    canvas.add(rect);
+  </script>
+</body>
+
+</html>

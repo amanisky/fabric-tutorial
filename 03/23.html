@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>23、loadSVGFromString、loadSVGFromURL</title>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <canvas id="d"></canvas>
+  <script src="../bower_components/fabric.js/dist/fabric.js"></script>
+  <script>
+    var canvas = new fabric.Canvas('c', {
+      width: 500,
+      height: 300,
+      backgroundColor: '#eee'
+    });
+    var canvas2 = new fabric.Canvas('d', {
+      width: 500,
+      height: 300,
+      backgroundColor: 'red'
+    });
+    var svgStr = `
+      <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+      <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="500" height="300" viewBox="0 0 500 300" xml:space="preserve">
+      <desc>Created with Fabric.js 2.4.3</desc>
+      <defs>
+      </defs>
+      <rect x="0" y="0" width="100%" height="100%" fill="#eee"></rect>
+      <g transform="matrix(1 0 0 1 200.5 110.5)"  >
+      <rect style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,128,0); fill-rule: nonzero; opacity: 1;"  x="-100" y="-100" rx="0" ry="0" width="200" height="200" />
+      </g>
+      </svg>
+    `;
+    fabric.loadSVGFromString(svgStr, function (objects, options) {
+      console.log(111, objects, 222, options)
+      var obj = fabric.util.groupSVGElements(objects, options);
+      canvas.add(obj).renderAll();
+    });
+    fabric.loadSVGFromURL('../images/dragon.svg', function (objs, opts) {
+      console.log(111, objs, 222, opts)
+      var obj = fabric.util.groupSVGElements(objs, opts);
+      canvas2.add(obj).renderAll();
+    });
+  </script>
+</body>
+</html>

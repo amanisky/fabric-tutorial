@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>37、clipPath 绝对定位</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <script src="../bower_components/fabric.js/dist/fabric.js"></script>
+  <script>
+    var canvas = new fabric.Canvas('c', {
+      width: 500,
+      height: 500,
+      backgroundColor: '#eee'
+    });
+    var clipPath = new fabric.Rect({ width: 500, height:250, top: 0, left: 0, absolutePositioned: true });
+    var clipPath2 = new fabric.Rect({ width: 500, height:250, top: 250, left: 0, absolutePositioned: true });
+    fabric.Image.fromURL('../images/dragon.jpg', function(img) {
+      img.clipPath = clipPath;
+      img.scaleToWidth(500);
+      canvas.add(img);
+    });
+    fabric.Image.fromURL('../images/dragon2.jpg', function(img) {
+      img.clipPath = clipPath2;
+      img.scaleToWidth(500);
+      img.top = 250;
+      canvas.add(img);
+    });
+  </script>
+</body>
+</html>
