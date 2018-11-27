@@ -85,3 +85,31 @@ visible | true | boolean | - | 设置为 false，则对象不渲染到画布上
 width | 0 | number | - | 对象的宽度
 
 ### 方法
+| 方法名 | 参数说明 | 返回值 | 方法说明 |
+| - | - | - | - |
+_calcRotateMatrix() | - | array | 计算对象的旋转矩阵
+_calcTranslateMatrix() | - | array | 计算对象变换的平移矩阵
+_limitCacheSize(dims) | {width, height, zoomX, zoomY} | {Object|Object|Object|Object} | 限制缓存尺寸（性能）
+_removeCacheCanvas() | - | - | 从对象中删除缓存画布及其尺寸
+_renderControls(ctx, styleOverrideopt) | ctx：要渲染的上下文；styleOverrideopt：用于覆盖对象样式的属性(可选) | 渲染对象的控件和边框
+_setupCompositeOperation(ctx) | ctx：渲染画布上下文 | - | 为特定对象设置canvas globalCompositeOperation可以使用globalCompositeOperation属性指定特定对象的自定义合成操作
+adjustPosition(to) | to 可选值：left、center、right | - | 调整位置
+animate(property, value) | property：动画的属性值；value：动画的结束值（支持相对值） | {fabric.Object} | 动画
+bringForward(intersectingopt) | intersectingopt：是否相交？如果是 true，则在下一个上方交叉对象前面发送对象 | {fabric.Object} | 将对象向上移动到绘制对象的堆栈中
+bringToFront() | - | {fabric.Object} | 将对象移动到绘制对象堆栈的顶部
+calcCoords() | - | {Object} | 计算并返回对象的9个控件方框
+calcTransformMatrix(skipGroupopt) | skipGroupopt：是否跳过组？可选值：true、false | {Array} | 计算变换表示来自对象属性的当前变换的矩阵
+center() | - | {fabric.Object} | 让对象水平、垂直居中；在居中后，您可能需要在对象上调用 setCoords 来更新控件区域
+centerH() | - | {fabric.Object} | 让对象水平居中
+centerV() | - | {fabric.Object} | 让对象垂直居中
+clone(callback, propertiesToIncludeopt) | callback：回调函；propertiesToIncludeopt：另外包含的任何属性 | - | 克隆对象
+cloneAsImage(callback, optionsopt) | - | {fabric.Object} | 克隆为图片
+complexity() | - | {Number} | 返回实例的复杂性（默认为：1）
+containsPoint(point, linesopt, absoluteopt, calculateopt) | - | {Boolean} | 检查点是否在对象内；如果 point 在对象内，则返回 true
+drawBorders(ctx, styleOverride) | - | {fabric.Object} | 绘制对象边界框的边框；需要公共属性：width，height；需要公共选项：padding，borderColor
+drawBordersInGroup(ctx, options, styleOverride) | - |  {fabric.Object} | 当对象的边界框位于组内时，绘制边框；需要公共属性：width，height；需要公共选项：padding，borderColor
+drawCacheOnCanvas(ctx) | - | - | 在目标上下文上绘制对象的缓存副本
+drawClipPathOnCache(ctx) | - | - | 执行对象 clipPath 的绘制操作
+drawControls(ctx, styleOverride) | - | {fabric.Object} | 绘制对象边界框的角（即9个控件）；需要公共属性：width，height；需要公共选项：cornerSize，padding
+drawObject(ctx) | - | - | 对指定上下文中的对象执行绘制操作
+drawSelectionBackground(ctx) | - | {fabric.Object} | 在对象后面，在其选择边框内绘制彩色图层
