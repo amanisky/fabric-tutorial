@@ -17,6 +17,51 @@
 + 自由绘图
 + 方便扩展
 
+# Fabric 对象缓存
++ 它是如何工作的？
+  + 当布料对象缓存处于活动状态时，您在画布上绘制的对象实际上预先绘制在另一个较小的 offscren(画面以外的) 画布上，与对象像素尺寸本身一样大。在 render 方法中，这个预先绘制的画布通过 drawImage 操作被复制到主画布上。
+  + 这意味着在拖动、旋转、扭曲、缩放操作期间，对象不会在画布上重绘，而只是在屏幕上绘制其复制的缓存图像。
++ 如何调整/定制它
+  + objectCaching 
+    + 默认值：true；则表示对象被缓存在另一个画布上
+  + statefullCache
+    + 默认值：false
+    + 当为 true 时，将检查对象属性缓存是否失效
+    + 在某些特定情况下（喷刷，非常大的路径组，组），您可能希望禁用此选项
+    + 如果您的应用程序不允许您修改组的子对象属性，组可以禁用此选项
+  + noScaleCache 
+    + 默认值：true
+    + 禁用缩放操作的缓存重新生成，避免大缩放的模糊效果
+  + cacheProperties
+    + 默认值：["fill", "stroke", "strokeWidth", "strokeDashArray", "width", "height", "stroke", "strokeWidth", "strokeDashArray", "strokeLineCap", "strokeLineJoin", "strokeMiterLimit", "fillRule", "backgroundColor"]
+    + 检查缓存是否需要刷新时要考虑的属性列表；需要开启 statefullCache 属性
+    + 当调用 set（key，value）时，都会在此属性数组中搜索 key，如果找到了 key，则将对象标记为需要重新渲染
+  + stateProperties
+    + 默认值：["top", "left", "width", "height", "scaleX", "scaleY", "flipX", "flipY", "originX", "originY", "transformMatrix", "stroke", "strokeWidth", "strokeDashArray", "strokeLineCap", "strokeLineJoin", "strokeMiterLimit", "angle", "opacity", "fill", "globalCompositeOperation", "shadow", "clipTo", "visible", "backgroundColor", "skewX", "skewY", "fillRule", "paintFirst"]
+    + 检查对象状态是否已更改时要考虑的属性列表
+  + dirty
+    + 默认值：true
+    + 在下一个渲染方法中强制对象的缓存重新渲染，并在缓存重新生成后自动设置为 false
+  + needsItsOwnCache
+    + 默认值：是一个函数，返回 false；即：function() { return false; } 
+    + 当返回 true 时，强制对象拥有自己的缓存
+    + 即使它在一个组内，当你的对象在缓存上以特定方式运行并且总是需要它自己的孤立画布来正确渲染时，它可能是需要的
+  + fabric.perfLimitSizeTotal = 2097152;
+    + 生成的缓存画布的像素区域的最大尺寸
+  + fabric.maxCacheSideLimit = 4096;
+    + 生成的缓存画布的最大边的限制
+    + IE 将最大值修复为 5000
+  + fabric.minCacheSideLimit = 256;
+    + 生成的缓存画布的最小边的限制
++ 什么时候使用新版本更新缓存？
+  + 设置对象属性
+  + 如果该属性在 cacheProperties 数组中时，该对象和组都会标记为脏
+  + 如果该属性在 stateProperties 数组中时，则只标记组为脏
++ 如何检查自定义子类以及属性的变化？
+  + statefullCache 属性设置为 true
+  + 可以将自定义属性添加到 cacheProperties 属性数组中
+  + 
+
 # 第一部分
 + 01、使用 canvas 画矩形 vs fabric 画矩形
   + fabric.Canvas
@@ -69,6 +114,7 @@
   + fabric.Image
 + 12、通过 url 将图片添加到画布中
   + fabric.Image.fromURL  
+    + scaleToWidth
 + 13、根据路径画图
   + fabric.Path
   + 手工创建路径不方便
