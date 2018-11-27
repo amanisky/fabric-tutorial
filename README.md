@@ -341,6 +341,13 @@
     1. nested object deeper ( nested groups )  （更深层嵌套对象(嵌套组)）
   + 矩阵原始形态
     + { angle: number, scaleX: number, scaleY: number, skewX: number, skewY: 0, translateX: number ,translateY: number }
+    + skew 改变元素在页面中的形状
+      + skewX 横向倾斜指定度数
+        + x 取值为正，x 轴不动，y 轴逆时针倾斜一定角度
+        + x 取值为负，x 轴不动，y 轴顺时针倾斜一定角度
+      + skewY 纵向倾斜指定度数
+        + y 取值为正，y 轴不动，x 轴顺时针倾斜一定角度
+        + y 取值为负，y 轴不动，x 轴逆时针倾斜一定角度
 
 # 第七部分
 + 30、在 fabricJS 中使用位图而不是字体来替换文本
@@ -376,6 +383,9 @@
   + inverted: true
 + 39、组挖空对象
   + 只能将 inverted 设置到组对象上，设置到组内对象上将无效
+
+# 第九部分
++ fabric.Object 对象
 
 # 方法
 + getObjects() 获取组中的所有对象
