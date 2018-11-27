@@ -1,0 +1,17 @@
+{
+  "name": "fabric-demo",
+  "homepage": "https://github.com/amanisky/fabric-demo",
+  "authors": [
+    "amanisky@126.com"
+  ],
+  "description": "fabric demo",
+  "main": "",
+  "keywords": [
+    "fabric"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "fabric.js": "fabric#^2.4.4"
+  }
+}
