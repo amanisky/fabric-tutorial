@@ -83,3 +83,5 @@ transparentCorners | true | boolean | - | 方框控件是否透明
 type | 'object' | string | - | 设置对象的类型；只读不可修改
 visible | true | boolean | - | 设置为 false，则对象不渲染到画布上
 width | 0 | number | - | 对象的宽度
+
+### 方法
