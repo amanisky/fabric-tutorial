@@ -2,8 +2,8 @@
 + 根对象，所有 2d 形状类都继承自它
 
 ### 属性
-属性名 | 默认值 | 类型 | 种类 | 说明
-- | - | - | - | -
+| 属性名 | 默认值 | 类型 | 种类 | 说明 |
+| ---- | ---- | ---- | ---- | ----- |
 __uid | - | number | static | 唯一ID，当创建 SVG 元素内部使用
 NUM_FRACTION_DIGITS | 2 | number | static、constant | 定义序列化对象值时要使用的小数位数
 __corner | 0 | number、string、any | - | ...
