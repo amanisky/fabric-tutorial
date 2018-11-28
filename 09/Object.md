@@ -113,3 +113,73 @@ drawClipPathOnCache(ctx) | - | - | 执行对象 clipPath 的绘制操作
 drawControls(ctx, styleOverride) | - | {fabric.Object} | 绘制对象边界框的角（即9个控件）；需要公共属性：width，height；需要公共选项：cornerSize，padding
 drawObject(ctx) | - | - | 对指定上下文中的对象执行绘制操作
 drawSelectionBackground(ctx) | - | {fabric.Object} | 在对象后面，在其选择边框内绘制彩色图层
+fxStraighten(callbacks) | - | {fabric.Object} | 整理了一下一个对象(从当前角度旋转的0,90,180,270,等根据近)带动画效果
+getBoundingRect(absoluteopt, calculateopt) | - | {Object} | 返回对象的边界矩形的坐标(左,上,宽度、高度)盒子的态度作为轴对齐的画布
+getCenterPoint() | - | {fabric.Point} | 返回对象的真正的中心坐标
+getCoords() | - | - | 返回4个重要控件的坐标点
+getLocalPointer(e, pointeropt) | - | {Object} | 返回指针相对于物体的坐标
+getObjectOpacity() | - | {Number} | 获取对象的透明度值
+getObjectScaling() | - | {Object} | 获取对象水平和垂直的缩放值
+getPointByOrigin(originX, originY) | - | {fabric.Point} | 获取相对原点的坐标点
+getScaledHeight() | - | {Number} | 获取缩放后的高度值
+getScaledWidth() | - | {Number} | 获取缩放后的宽度值
+getSvgCommons() | - | {String} | 获取输出的 SVG 的 ID 值
+getSvgFilter() | - | {String} | 获取 SVG 的过滤器
+getSvgSpanStyles(style, useWhiteSpace) | - | {String} | 获取 SVG 容器指定的样式值
+getSvgStyles(skipShadow) | - | {String} | 获取 SVG 的样式
+getSvgTextDecoration(style) | - | {String} | 获取 SVG 文件的  text-decoration 属性值
+getSvgTransform(use) | - | {String} | 获取 SVG Transform 值
+getSvgTransformMatrix() | - | {String} | 获取单个元素 SVG 转换矩阵
+getTotalObjectScaling() | - | {Object} | 获取对象比例因子
+getViewportTransform() | - | {Boolean} | 获取视口转换
+hasStateChanged(propertySetopt) | - | {Boolean} | 是否改变了对象的状态
+initialize(optionsopt) | - | - | 构造函数
+intersectsWithObject(other, absoluteopt, calculateopt) | - | {Boolean} | 检查对象是否相交
+intersectsWithRect(pointTL, pointBR, absoluteopt, calculateopt) | - | {Boolean} | 检查对象是否与由2个点形成的区域相交
+isCacheDirty(skipCanvas) | - | {Boolean} | 检查缓存是否脏了
+isContainedWithinRect(pointTL, pointBR, absoluteopt, calculateopt) | - | {Boolean} | 检查对象是否完全包含在由2个点组成的区域内
+isControlVisible(controlName) | - | {Boolean} | 检查指定的控件是否可见
+isOnScreen(calculateopt) | - | {Boolean} | 使用当前viewportTransform检查画布中是否包含对象，检查是否在屏幕上显示的第一个点停止
+isPartiallyOnScreen(calculateopt) | - | {Boolean} | 使用当前viewportTransform检查对象是否部分包含在画布中
+isType(type) | - | {Boolean} | 判断对象是否是指定的类型
+moveTo(index) | - | {fabric.Object} | 将对象移动到绘制对象堆栈中的指定级别
+needsItsOwnCache() | - | - | 当设置为 "true" 时，强制对象拥有自己的缓存，即使它在组中，当对象在缓存上以特定方式运行并且始终需要自己的孤立画布才能正确呈现时，可能需要它
+onDeselect(optionsopt) | - | - | 当丢弃活动对象或设置活动对象时该函数会被执行
+onSelect(optionsopt) | - | - | 当丢弃活动对象或设置活动对象时该函数会被执行
+render(ctx) | - | - | 在指定的上下文中渲染对象
+rotate(angle) | - | {fabric.Object} | 设置对象以中心点的旋转角度
+saveState(optionsopt) | - | {fabric.Object} | 保存对象的状态
+scale(value) | - | {fabric.Object} | 缩放对象（包括水平和垂直方向）
+scaleToHeight(value, absolute) | - | {fabric.Object} | 将对象缩放到指定高度
+scaleToWidth(value, absolute) | - | {fabric.Object} | 将对象缩放到指定高度
+sendBackwards(intersectingopt) | - | {fabric.Object} | 将对象向下移动到绘制对象的堆栈中
+sendToBack() | - | {fabric.Object} | 将对象移动到绘制对象堆栈的底部
+setColor(color) | - | {fabric.Object} | 等价于 set('fill', 'red')，用指定颜色填充对象
+setControlsVisibility(optionsopt) | - | {fabric.Object} | 设置对象被选中时，哪些控件可见
+setControlVisible(controlName, visible) | - | {fabric.Object} | 设置对象被选中时，指定控件的可见性
+setCoords(ignoreZoomopt, skipAbsoluteopt) | - | {fabric.Object} | 根据当前角度，宽度和高度设置角位置坐标
+setGradient(property, optionsopt) | - | {fabric.Object} | 设置渐变
+setOnGroup() | - | - | ...
+setOptions(optionsopt) | - | - | 设置对象的属性
+setPatternFill(options, callbackopt) | - | {fabric.Object} | 设置对象的填充图案
+setPositionByOrigin(pos, originX, originY) | - | {void} | 设置对象的位置，同时考虑对象的原点
+setShadow(optionsopt) | - | {fabric.Object} | 设置对象的阴影
+setupState(optionsopt) | - | {fabric.Object} | 设置对象的状态
+shouldCache() | - | {Boolean} | 对象是否需要缓存；
+straighten() | - | {fabric.Object} | 拉直物体（将其从当前角度旋转到0,90,180,270等之一，具体取决于哪个更接近）
+toClipPathSVG(reviveropt) | - | {String} | 返回实例的svg clipPath表示形式
+toDatalessObject(propertiesToIncludeopt) | - | {Object} | 返回实例的更少数据对象表示
+toDataURL(options) | - | {String} | 返回实例的 data-url-like 的字符串表示形式
+toJSON(propertiesToIncludeopt) | - | {Object} | 返回实例的 JSON 表示形式
+toLocalPoint(point, originX, originY) | - | {fabric.Point} | 返回本地坐标中的点
+toObject(propertiesToIncludeopt) | - | {Object} | 返回实例的对象表示形式
+toString() | - | {String} | 返回实例的字符串表示形式
+toSVG(reviveropt) | - | {String} | 返回实例的 svg 表示形式
+transform(ctx) | - | - | 渲染对象时转换上下文
+translateToCenterPoint(point, originX, originY) | - | {fabric.Point} | 将坐标从原点坐标转换为中心坐标（基于对象的尺寸）
+translateToGivenOrigin(point, fromOriginX, fromOriginY, toOriginX, toOriginY) | - |  {fabric.Point} | 将坐标从一组原点转换为另一个原点（基于对象的尺寸）
+translateToOriginPoint(center, originX, originY) | - | {fabric.Point} | 将坐标从中心坐标转换为原点坐标（基于对象的尺寸）
+viewportCenter() | - | {fabric.Object} | 在最后添加它的画布的当前视口上的中心对象。 在居中后，您可能需要在对象上调用 setCoords 来更新控件区域
+viewportCenterH() | - | {fabric.Object} | 视口水平居中
+viewportCenterV() | - | {fabric.Object} | 视口垂直居中
+willDrawShadow() | - | {Boolean} | 是否画阴影
