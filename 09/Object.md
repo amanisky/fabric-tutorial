@@ -19,7 +19,7 @@ cacheProperties | [...] | array | - | 检查缓存是否需要刷新时要考虑
 centeredRotation | true | boolean | - | 如果为 true，则以此对象的中心点作为旋转的原点；如果为 false，则以此对象的左上顶点作为旋转的原点
 centeredScaling | false | boolean | - | 如果为 true，则以此对象的中心点作为缩放的原点；
 clipPath | undefined | fabric.Object | - | 设置具有其形状的剪切区域；默认以缓存画布的中心作为中心点；如果希望 0,0 的 clipPath 与对象中心对齐，请使用 clipPath.originX / clipPath.originY 设置为 center
-clipTo | null | function | - | ...
+clipTo | null | function | - | 剪切对象所使用的函数（案例：http://fabricjs.com/clipping）
 cornerColor | 'rgba(102,153,255,0.5)' | string | - | 选中对象四周方框的背景颜色
 cornerDashArray | null | array | - | 选中对象四周方框的虚线样式
 cornerSize | 13 | number | - | 选中对象四周方框的大小
@@ -52,7 +52,7 @@ matrixCache | null | any | - | 存储对象完整的变换矩阵
 minScaleLimit | 0 | number | - | 对象允许缩放的最小值；即缩小多少倍之后不允许再缩小了
 moveCursor | null | string | - | 移动对象放下后鼠标的样式
 noScaleCache | true | boolean | - | 当为 true 禁用缩放操作的缓存重新生成，避免大缩放的模糊效果
-objectCaching | true | boolean | - | 当为 true 对象缓存到一个额外的画布上
+objectCaching | true | boolean | - | 当为 true 对象缓存到一个额外的画布上；那么放大对象时，会导致失真，但缩放结束后会调整清晰；设置为 false，放大不会失真，但是性能不太好
 oCoords | null | any | - | 当对象被选中时，9 个方框控件的坐标点；会受到 width, height, scaleX, scaleY skewX, skewY, angle, strokeWidth, viewportTransform, top, left, padding 属性的影响
 opacity | 1 | number | - | 对象的透明度
 originX | 'left' | string | - | 水平转换对象的原点；可选值：left、center、right
@@ -78,7 +78,7 @@ strokeLineJoin | 'miter' | string | - | 笔划的角落样式；可选值：bevi
 strokeMiterLimit | 4 | number | - | 笔划的最大斜接长度(strokeLineJoin: 'miter' 才生效) 
 strokeWidth | 1 | number | - | 描边宽度
 top | 0 | number | - | 对象的顶部位置；默认情况下它相对于对象 top；可以通过设置 originY: {top/center/bottom} 来改变默
-transformMatrix | null | array | - | 转换矩阵
+transformMatrix | null | array | - | 对象的矩阵数组（类似 SVG 的变换矩阵）
 transparentCorners | true | boolean | - | 方框控件是否透明
 type | 'object' | string | - | 设置对象的类型；只读不可修改
 visible | true | boolean | - | 设置为 false，则对象不渲染到画布上
@@ -134,7 +134,7 @@ getTotalObjectScaling() | - | {Object} | 获取对象比例因子
 getViewportTransform() | - | {Boolean} | 获取视口转换
 hasStateChanged(propertySetopt) | - | {Boolean} | 是否改变了对象的状态
 initialize(optionsopt) | - | - | 构造函数
-intersectsWithObject(other, absoluteopt, calculateopt) | - | {Boolean} | 检查对象是否相交
+intersectsWithObject(other, absoluteopt, calculateopt) | - | {Boolean} | 检查对象是否与另一个对象相交（重叠）
 intersectsWithRect(pointTL, pointBR, absoluteopt, calculateopt) | - | {Boolean} | 检查对象是否与由2个点形成的区域相交
 isCacheDirty(skipCanvas) | - | {Boolean} | 检查缓存是否脏了
 isContainedWithinRect(pointTL, pointBR, absoluteopt, calculateopt) | - | {Boolean} | 检查对象是否完全包含在由2个点组成的区域内
@@ -157,7 +157,7 @@ sendToBack() | - | {fabric.Object} | 将对象移动到绘制对象堆栈的底�
 setColor(color) | - | {fabric.Object} | 等价于 set('fill', 'red')，用指定颜色填充对象
 setControlsVisibility(optionsopt) | - | {fabric.Object} | 设置对象被选中时，哪些控件可见
 setControlVisible(controlName, visible) | - | {fabric.Object} | 设置对象被选中时，指定控件的可见性
-setCoords(ignoreZoomopt, skipAbsoluteopt) | - | {fabric.Object} | 根据当前角度，宽度和高度设置角位置坐标
+setCoords(ignoreZoomopt, skipAbsoluteopt) | - | {fabric.Object} | 根据当前角度，宽度和高度设置控件位置坐标
 setGradient(property, optionsopt) | - | {fabric.Object} | 设置渐变
 setOnGroup() | - | - | ...
 setOptions(optionsopt) | - | - | 设置对象的属性
