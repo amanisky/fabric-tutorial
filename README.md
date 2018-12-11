@@ -405,6 +405,11 @@
 ### fabric.js
 + https://github.com/fabricjs/fabric.js
 + http://fabricjs.com/articles/
++ http://www.hangge.com/blog/cache/search.php?key=Fabric.js
+  + 改变鼠标指针样式
+  + 画布视图 viewport 的自适应
+  + 鼠标拖动画布、滚轮缩放画布
+  + 添加鼠标右键点击事件响应（右键菜单）
 
 ### SVG.js
 + https://svgjs.com/docs/2.7/#svg-js

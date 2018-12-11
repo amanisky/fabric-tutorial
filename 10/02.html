@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>02、sendBackwards 详解</title>
+  <style>
+    body { margin: 0; }
+  </style>
+</head>
+
+<body>
+  <canvas id="c"></canvas>
+  <script src="../bower_components/fabric.js/dist/fabric.js"></script>
+  <script>
+    var canvas = new fabric.Canvas('c', {
+      width: 500,
+      height: 300,
+      backgroundColor: '#ccc'
+    })
+    var red = new fabric.Rect({ width: 50, height: 50, fill: 'red' })
+    var pink = new fabric.Rect({ left: 80, width: 50, height: 50, fill: 'pink' })
+    var blue = new fabric.Rect({ left: 10, width: 50, height: 50, fill: 'blue' })
+    var startAngle = fabric.util.degreesToRadians(0)
+    var endAngle = fabric.util.degreesToRadians(360)
+    var green = new fabric.Circle({ radius: 25, startAngle, endAngle, fill: 'green' })
+    var orange = new fabric.Rect({ left: 10, width: 50, height: 50, fill: 'orange' })
+    /**
+     * 层叠顺序从下到上：红、绿、粉、蓝、橙
+     */
+    canvas.add(red, green, pink, blue, orange)
+    /**
+     * sendBackwards 第二个参数表示是否以相交的对象为参照物来下移对象
+     * true 表示以与要移动对象第一个相交的对象为参照物下移；因为粉色矩形做过位移，那么粉色矩形与蓝色矩形是没有交叉点的，
+     * 则蓝色矩形会以绿色矩形为参照物下移，最终会显示在绿色矩形下方
+     * false 按照之前的层叠顺序下移；则蓝色矩形会下移到粉色矩形下方；
+     */
+    canvas.sendBackwards(blue, true)
+  </script>
+</body>
+
+</html>

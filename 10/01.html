@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>01、fabric.Canvas 对象 之 bringForward 详解</title>
+  <style>
+    body { margin: 0; }
+  </style>
+</head>
+
+<body>
+  <canvas id="c"></canvas>
+  <script src="../bower_components/fabric.js/dist/fabric.js"></script>
+  <script>
+    var canvas = new fabric.Canvas('c', {
+      width: 500,
+      height: 300,
+      backgroundColor: '#ccc'
+    })
+    var red = new fabric.Rect({ width: 50, height: 50, fill: 'red' })
+    var pink = new fabric.Rect({ left: 52, width: 50, height: 50, fill: 'pink' })
+    var blue = new fabric.Rect({ left: 10, width: 50, height: 50, fill: 'blue' })
+    var startAngle = fabric.util.degreesToRadians(0)
+    var endAngle = fabric.util.degreesToRadians(360)
+    var green = new fabric.Circle({ radius: 25, startAngle, endAngle, fill: 'green' })
+    var orange = new fabric.Rect({ left: 10, width: 50, height: 50, fill: 'orange' })
+    /**
+     * 层叠顺序从下到上：红、绿、粉、蓝、橙
+     */
+    canvas.add(red, green, pink, blue, orange)
+    /**
+     * 粉色矩形做过位移，那么粉色矩形与绿色矩形是没有交叉点的
+     * 如果 bringForward 第二个参数设置为 false，绿色矩形则表示以粉色矩形为参照物上移，即：按照原来的层叠顺序来上移
+     * 如果设置为 true，绿色矩形则以与它有交叉点的蓝色矩形为参照物上移，即：上移到第一个与它交叉的对象上方
+     */
+    canvas.bringForward(green, true)
+  </script>
+</body>
+
+</html>
