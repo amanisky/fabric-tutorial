@@ -12,6 +12,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "fabric.js": "fabric#^2.4.4"
+    "fabric.js": "fabric#^2.4.4",
+    "jquery": "^3.3.1"
   }
 }
