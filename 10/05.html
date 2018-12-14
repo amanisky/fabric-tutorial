@@ -15,11 +15,11 @@
 <script src="../bower_components/jquery/dist/jquery.js"></script>
 <script src="../bower_components/fabric.js/dist/fabric.js"></script>
 <script>
-fabric.Object.prototype.lockMovementX = true
-fabric.Object.prototype.lockMovementY = true
-fabric.Object.prototype.hasControls = false
-fabric.Object.prototype.includeDefaultValues = false
-fabric.Object.prototype.hoverCursor = 'pointer'
+fabric.Object.prototype.lockMovementX = true;
+fabric.Object.prototype.lockMovementY = true;
+fabric.Object.prototype.hasControls = false;
+fabric.Object.prototype.includeDefaultValues = false;
+fabric.Object.prototype.hoverCursor = 'pointer';
 // 扩展属性
 fabric.Object.prototype.toObject = (function (toObject) {
   return function (propertiesToInclude) {
@@ -30,31 +30,32 @@ fabric.Object.prototype.toObject = (function (toObject) {
 var canvas = new fabric.Canvas('c', {
   height: 300,
   selection: false,
-  backgroundColor: 'green'
-})
-var chooses = []
-var point = new fabric.Point(10, 10)
+  backgroundColor: '#ccc'
+});
+var chooses = [];
+var point = new fabric.Point(10, 10);
 canvas.relativePan(point)
 for (var i = 0; i < 6; i++) {
   for (var j = 0; j < 2; j++) {
-    canvas.add(new fabric.Rect({ stall: { no: `A${i + 1}-${j + 1}` }, top: i * 20, left: j * 20, width: 20, height: 20, fill: 'white', stroke: '#ccc', strokeWidth: 1 }))
+    canvas.add(new fabric.Rect({ stall: { no: `A${i + 1}-${j + 1}` }, top: i * 20, left: j * 20, width: 20, height: 20, fill: 'white', stroke: '#ccc', strokeWidth: 1 }));
   }
 }
 for (var i = 0; i < 6; i++) {
   for (var j = 0; j < 2; j++) {
-    var obj = new fabric.Rect({ stall: { no: `B${i + 1}-${j + 1}` }, top: i * 20, left: j * 20 + 60, width: 20, height: 20, fill: 'white', stroke: '#ccc', strokeWidth: 1 })
+    var obj = new fabric.Rect({ stall: { no: `B${i + 1}-${j + 1}` }, top: i * 20, left: j * 20 + 60, width: 20, height: 20, fill: 'white', stroke: '#ccc', strokeWidth: 1 });
     if (i == 4 && j == 1 || i == 2 && j == 1) {
-      obj = new fabric.Circle({ top: i * 20, left: j * 20 + 60, radius: 10, selectable: false, fill: 'black' })
+      obj = new fabric.Circle({ top: i * 20, left: j * 20 + 60, radius: 10, selectable: false, fill: 'black' });
     }
-    canvas.add(obj)
+    canvas.add(obj);
   }
 }
-var rect = new fabric.Rect({ stall: { no: 'A7-1' }, top: 120, width: 40, height: 40, fill: 'white', stroke: '#ccc', strokeWidth: 1 })
-var rect2 = new fabric.Rect({ stall: { no: 'B7-1' }, top: 120, left: 60, width: 40, height: 40, fill: 'white', stroke: '#ccc', strokeWidth: 1 })
-canvas.add(rect, rect2)
+var rect = new fabric.Rect({ stall: { no: 'A7-1' }, top: 120, width: 40, height: 40, fill: 'white', stroke: '#ccc', strokeWidth: 1 });
+var rect2 = new fabric.Rect({ stall: { no: 'B7-1' }, top: 120, left: 60, width: 40, height: 40, fill: 'white', stroke: '#ccc', strokeWidth: 1 });
+canvas.add(rect, rect2);
 
 canvas
   .on('mouse:down', function (opt) {
+    console.log(opt.e)
     this.isDragging = true;
     this.lastPosX = opt.e.clientX;
     this.lastPosY = opt.e.clientY;
@@ -75,6 +76,17 @@ canvas
       canvas.discardActiveObject(opt.target)
     }
   })
+  .on('mouse:move', function(opt) {
+    if (this.isDragging) {
+      fabric.Object.prototype.selectable = false
+      var delta = new fabric.Point(opt.e.movementX, opt.e.movementY);
+      canvas.relativePan(delta);
+    }
+  })
+  .on('mouse:up', function(opt) {
+    this.isDragging = false;
+    canvas.requestRenderAll();
+  })
   .on('mouse:wheel', function(opt) {
     var zoom = (opt.e.deltaY > 0 ? -0.1 : 0.1) + canvas.getZoom();
     // 最小为原来的1/2
@@ -84,35 +96,30 @@ canvas
     var zoomPoint = new fabric.Point(opt.e.pageX, opt.e.pageY);
     canvas.zoomToPoint(zoomPoint, zoom);
   })
-  .on('mouse:move', function(opt) {
-    if (this.isDragging) {
-      var delta = new fabric.Point(opt.e.movementX, opt.e.movementY);
-      canvas.relativePan(delta);
-    }
-  })
-  .on('mouse:up', function(opt) {
-    this.isDragging = false
-    canvas.requestRenderAll()
-  })
 
+// 组合
 $('#group').click(function () {
-  var group = new fabric.Group([], { selectable: true })
+  var group = new fabric.Group([], { selectable: true });
   chooses.forEach(function (item) {
-    item.target.set('fill', 'pink')
-    group.addWithUpdate(item.target)
+    item.target.set('fill', 'pink');
+    group.addWithUpdate(item.target);
   })
   canvas.add(group).setActiveObject(group).requestRenderAll()
   chooses = []
 })
+
+// 描边
 $('#stroke').click(function () {
-  var group = new fabric.Group([], { selectable: true })
-  var rs = []
-  chooses.forEach(function (item) {
-    rs.push(item.target.aCoords)
-    group.addWithUpdate(item.target)
-  })
-  chooses = []
-  console.log(rs)
+  // var group = new fabric.Group([], { selectable: true })
+  // var rs = []
+  // chooses.forEach(function (item) {
+  //   rs.push(item.target.aCoords)
+  //   group.addWithUpdate(item.target)
+  // })
+  // chooses = []
+  // console.log(rs)
+  var line = new fabric.Line([0, 0, 50, 0], { stroke: 'green' });
+  canvas.add(line);
 })
 // console.log(canvas.toJSON())
 </script>

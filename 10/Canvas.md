@@ -15,3 +15,8 @@
 | centerObjectV(object) | fabric.Object | fabric.Canvas | 将指定对象在画布上垂直居中
 | clear() | - | fabric.Canvas | 清除画布实例以及画布上所有对象
 | clearContext(ctx) | CanvasRenderingContext2D | fabric.Canvas | 清除 canvas 元素的指定上下文
+
+
+### 参考链接
++ https://blog.csdn.net/daicooper/article/details/79800718
++ https://blog.csdn.net/yanzisu_congcong/article/details/77840526
