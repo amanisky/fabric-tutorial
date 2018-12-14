@@ -20,6 +20,7 @@ fabric.Object.prototype.lockMovementY = true;
 fabric.Object.prototype.hasControls = false;
 fabric.Object.prototype.includeDefaultValues = false;
 fabric.Object.prototype.hoverCursor = 'pointer';
+fabric.Object.prototype.borderColor = 'transparent';
 // 扩展属性
 fabric.Object.prototype.toObject = (function (toObject) {
   return function (propertiesToInclude) {
@@ -30,7 +31,7 @@ fabric.Object.prototype.toObject = (function (toObject) {
 var canvas = new fabric.Canvas('c', {
   height: 300,
   selection: false,
-  backgroundColor: '#ccc'
+  backgroundColor: 'green'
 });
 var chooses = [];
 var point = new fabric.Point(10, 10);
@@ -55,10 +56,10 @@ canvas.add(rect, rect2);
 
 canvas
   .on('mouse:down', function (opt) {
-    console.log(opt.e)
-    this.isDragging = true;
-    this.lastPosX = opt.e.clientX;
-    this.lastPosY = opt.e.clientY;
+    if (opt.e.ctrlKey === true) {
+      this.isDragging = true;
+      fabric.Object.prototype.selectable = false;
+    }
     if (opt.target && opt.target.selectable) {
       var corlor = opt.target.get('fill') === 'white' ? 'red' : 'white'
 
@@ -85,6 +86,7 @@ canvas
   })
   .on('mouse:up', function(opt) {
     this.isDragging = false;
+    fabric.Object.prototype.selectable = true;
     canvas.requestRenderAll();
   })
   .on('mouse:wheel', function(opt) {
